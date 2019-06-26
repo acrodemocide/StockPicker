@@ -23,8 +23,20 @@ class Stock:
             randomGeneratedValues.append(random.randint(lowPossibility, highPossibility))
         return randomGeneratedValues
 
+
+def ShouldBuyStock(stock):
+    return stock.volume[0] > 50 and stock.dailyOpen[0] < stock.dailyClose[0]
+
+stockMarket = []
 appleStock = Stock('Apple', 'AAPL')
-print('Stock')
-print(appleStock.name)
-print(appleStock.symbol)
-print(appleStock.volume)
+microsoftStock = Stock('Microsoft', 'MSFT')
+googleStock = Stock('Google', "GOOGL")
+stockMarket.append(appleStock)
+stockMarket.append(microsoftStock)
+stockMarket.append(googleStock)
+
+for stock in stockMarket:
+    if ShouldBuyStock(stock):
+        print('Buy ' + stock.name)
+    else:
+        print('Do not buy ' + stock.name)
