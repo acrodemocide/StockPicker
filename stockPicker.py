@@ -27,6 +27,9 @@ class Stock:
 def ShouldBuyStock(stock):
     return stock.volume[0] > 50 and stock.dailyOpen[0] < stock.dailyClose[0]
 
+def ShouldSellStock(stock):
+    return stock.volume[0] > 50 and stock.dailyOpen[0] > stock.dailyClose[0]
+
 stockMarket = []
 appleStock = Stock('Apple', 'AAPL')
 microsoftStock = Stock('Microsoft', 'MSFT')
@@ -35,8 +38,19 @@ stockMarket.append(appleStock)
 stockMarket.append(microsoftStock)
 stockMarket.append(googleStock)
 
+currentlyHeldStock = []
+currentlyHeldStock.append(appleStock)
+currentlyHeldStock.append(microsoftStock)
+currentlyHeldStock.append(googleStock)
+
 for stock in stockMarket:
     if ShouldBuyStock(stock):
         print('Buy ' + stock.name)
     else:
         print('Do not buy ' + stock.name)
+
+for stock in currentlyHeldStock:
+    if ShouldSellStock(stock):
+        print('Sell ' + stock.name)
+    else:
+        print('Hold ' + stock.name)
