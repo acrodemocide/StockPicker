@@ -30,6 +30,11 @@ def ShouldBuyStock(stock):
 def ShouldSellStock(stock):
     return stock.volume[0] > 50 and stock.dailyOpen[0] > stock.dailyClose[0]
 
+# Recognize Technical Patterns
+# Determine support and resistance
+# Determine stop loss and what the profit should be (order strategy to hit profit target)
+# Plan to win 50%-60% of the time -- ensure wins overcome losses
+
 stockMarket = []
 appleStock = Stock('Apple', 'AAPL')
 microsoftStock = Stock('Microsoft', 'MSFT')
