@@ -30,6 +30,21 @@ def ShouldBuyStock(stock):
 def ShouldSellStock(stock):
     return stock.volume[0] > 50 and stock.dailyOpen[0] > stock.dailyClose[0]
 
+# In the future, we will update this so that it can generate an indicator based on how many days
+#   we want to look back. This can then be used to determine the OBV as a momentum indicator.
+# https://www.investopedia.com/terms/o/onbalancevolume.asp
+def OnBalanceVolume(stock):
+    currentDayIndex = len(stock.dailyClose) - 1
+    previousDayIndex = currentDayIndex - 1
+    closingPriceChange = stock.dailyClose[currentDayIndex] - stock.dailyClose[previousDayIndex]
+    onBalanceVolume = 0 # Initial OBV
+    if (closingPriceChange < 0):
+        onBalanceVolume = onBalanceVolume - stock.volume[currentDayIndex]
+    else if (closingPriceChange > 0):
+        onBalanceVolume = onBalanceVolume + stock.volume[currentDayIndex]
+    return onBalanceVolume
+
+
 # Recognize Technical Patterns
 # Determine support and resistance
 # Determine stop loss and what the profit should be (order strategy to hit profit target)
