@@ -35,8 +35,8 @@ def OnBalanceVolume(stock):
         onBalanceVolume = onBalanceVolume + stock.volume[currentDayIndex]
     return onBalanceVolume
 
-def OnBalanceVolumeShouldBuy(stock):
+def ShouldBuy(stock):
     return OnBalanceVolume(stock) > 0
 
-def OnBalanceVolumeShouldSell(stock):
+def ShouldSell(stock):
     return OnBalanceVolume(stock) < 0

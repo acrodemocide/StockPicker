@@ -1,5 +1,5 @@
 from Stock import Stock
-from TechnicalAnalyzer import OnBalanceVolumeShouldBuy, OnBalanceVolumeShouldSell
+from TechnicalAnalyzer import ShouldBuy, ShouldSell
 from StockMarket import StockMarket
 
 stockMarket = StockMarket()
@@ -10,9 +10,9 @@ googleStock = stockMarket.GetStock('GOOGL')
 print('On Volume Balance Analysis')
 for stockSymbol in stockMarket.market:
     stock = stockMarket.market[stockSymbol]
-    if OnBalanceVolumeShouldBuy(stock):
+    if ShouldBuy(stock):
         print('Buy ' + stock.name)
-    elif OnBalanceVolumeShouldSell(stock):
+    elif ShouldSell(stock):
         print('Sell ' + stock.name)
     else:
         print('Hold ' + stock.name)
