@@ -1,40 +1,27 @@
 from Stock import Stock
-from TechnicalAnalyzer import ShouldBuyStock, ShouldSellStock, OnBalanceVolumeShouldBuy, OnBalanceVolumeShouldSell
+from TechnicalAnalyzer import OnBalanceVolumeShouldBuy, OnBalanceVolumeShouldSell
+from StockMarket import StockMarket
 
-stockMarket = []
-appleStock = Stock('Apple', 'AAPL')
-microsoftStock = Stock('Microsoft', 'MSFT')
-googleStock = Stock('Google', "GOOGL")
-stockMarket.append(appleStock)
-stockMarket.append(microsoftStock)
-stockMarket.append(googleStock)
+stockMarket = StockMarket()
+appleStock = stockMarket.GetStock('AAPL')
+microsoftStock = stockMarket.GetStock('MSFT')
+googleStock = stockMarket.GetStock('GOOGL')
 
 currentlyHeldStock = []
 currentlyHeldStock.append(appleStock)
 currentlyHeldStock.append(microsoftStock)
 currentlyHeldStock.append(googleStock)
 
-for stock in stockMarket:
-    if ShouldBuyStock(stock):
-        print('Buy ' + stock.name)
-    else:
-        print('Do not buy ' + stock.name)
-
-for stock in currentlyHeldStock:
-    if ShouldSellStock(stock):
-        print('Sell ' + stock.name)
-    else:
-        print('Hold ' + stock.name)
-
-print('\n\n\nOn Volume Balance Analysis')
-for stock in stockMarket:
+print('On Volume Balance Analysis')
+for stockSymbol in stockMarket.market:
+    stock = stockMarket.market[stockSymbol]
     if OnBalanceVolumeShouldBuy(stock):
         print('Buy ' + stock.name)
     else:
         print('Do not buy ' + stock.name)
 
-for stock in currentlyHeldStock:
-    if OnBalanceVolumeShouldSell(stock):
-        print('Sell ' + stock.name)
+for stockSymbol in currentlyHeldStock:
+    if OnBalanceVolumeShouldSell(stockSymbol):
+        print('Sell ' + stockSymbol.name)
     else:
-        print('Hold ' + stock.name)
+        print('Hold ' + stockSymbol.name)
