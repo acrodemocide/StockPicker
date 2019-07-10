@@ -5,6 +5,12 @@ class Stock:
     def __init__(self, name, symbol):
         self.name = name
         self.symbol = symbol
+        self.dailyHigh = []
+        self.dailyLow = []
+        self.dailyOpen = []
+        self.dailyClose = []
+        self.volume = []
+        # Replace the below function with something that gets the actual data
         self.GenerateDummyData()
 
     def GenerateDummyData(self):
