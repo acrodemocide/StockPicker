@@ -1,5 +1,5 @@
 class StockDataReader:
-    def GetStockData(stockSymbol):
+    def GetStockData(self, stockSymbol):
         # TODO: Pick the correct file based on the stockSymbol
         f = open('AAPL.csv', 'r')
         f1 = f.readlines()
