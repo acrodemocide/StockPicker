@@ -13,7 +13,7 @@ appleStock = stockMarket.GetStock('AAPL')
 # watchedStocks.append(microsoftStock)
 # watchedStocks.append(googleStock)
 
-print(appleStock.dailyClose)
+# print(appleStock.dailyClose)
 
 accumulatedOnBalanceVolume = OnBalanceVolumeOverTime(appleStock)
 print(accumulatedOnBalanceVolume)

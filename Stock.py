@@ -17,13 +17,13 @@ class Stock:
             line_count = 0
             for row in csv_reader:
                 if line_count > 0:
-                    print(f'\t{row[0]} works in the {row[1]} department, and was born in {row[2]}.')
+                    # print(f'\t{row[0]} works in the {row[1]} department, and was born in {row[2]}.')
                     self.dailyOpen.append(row[1])
                     self.dailyHigh.append(row[2])
                     self.dailyLow.append(row[3])
                     self.dailyClose.append(row[4])
                     self.volume.append(row[6])
-                    line_count += 1
+                line_count += 1
 
     # def GenerateDummyData(self):
     #     lowPossibility = 0
