@@ -11,10 +11,11 @@ def BackTest():
     counter = 0
     portfolioValues = []
     while (counter < numberOfDays):
+        previousDayClose = appleStock.dailyClose[counter - 1]
+        currentDayClose = appleStock.dailyClose[counter]
+        portfolio.UpdateStockValue(currentDayClose)
         portfolioValues.append(portfolio.GetTotalValue())
         if (counter > 0):
-            previousDayClose = appleStock.dailyClose[counter - 1]
-            currentDayClose = appleStock.dailyClose[counter]
             choice = FirstAlgorithm(previousDayClose, currentDayClose)
             if (choice == 'buy'):
                 portfolio.Buy(currentDayClose)

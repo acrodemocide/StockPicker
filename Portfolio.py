@@ -12,7 +12,7 @@ class Portfolio:
     # This also assumes we can buy fractions of a share
     def Buy(self, stockValue):
         if (self.cash > 0):
-            totalSharesToBuy = stockValue / self.cash
+            totalSharesToBuy = self.cash / stockValue
             self.stockValue = stockValue
             self.numberOfStocksHeld = totalSharesToBuy
             self.cash = 0
@@ -23,3 +23,6 @@ class Portfolio:
             self.cash = self.stockValue * self.numberOfStocksHeld
             self.numberOfStocksHeld = 0
             self.stockValue = 0
+    
+    def UpdateStockValue(self, stockValue):
+        self.stockValue = stockValue
