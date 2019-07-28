@@ -1,7 +1,6 @@
 import csv
 import random
 
-# Generate Initial Data -- This will be replaced with actual data
 class Stock:
     def __init__(self, name, symbol):
         self.name = name
@@ -15,18 +14,19 @@ class Stock:
         self.volume = []
         self.onBalanceVolume = []
         
-        with open('AAPL.csv') as csv_file:
+        with open('./Data/AAPL.csv') as csv_file:
             csv_reader = csv.reader(csv_file, delimiter=',')
             line_count = 0
             for row in csv_reader:
-                currentDate = row[0]
-                currentOpen = row[1]
-                currentHigh = row[2]
-                currentLow = row[3]
-                currentClose = row[4]
-                currentAdjustedClose = row[5]
-                currentVolume = row[6]
                 if line_count > 0:
+                    currentDate = row[0]
+                    currentOpen = float(row[1])
+                    currentHigh = float(row[2])
+                    currentLow = float(row[3])
+                    currentClose = float(row[4])
+                    currentAdjustedClose = float(row[5])
+                    currentVolume = int(row[6])
+                    
                     self.dates.append(currentDate)
                     self.dailyOpen.append(currentOpen)
                     self.dailyHigh.append(currentHigh)

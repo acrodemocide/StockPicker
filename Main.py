@@ -1,14 +1,8 @@
-import json
 from Stock import Stock
-from TechnicalAnalyzer import OnBalanceVolumeApi, OnBalanceVolumeOverTime
-from StockMarket import StockMarket
+from BackTester import BackTest
 
-stockMarket = StockMarket()
-appleStock = stockMarket.GetStock('AAPL')
+# appleStock = Stock('Apple', 'AAPL')
+# print(appleStock.onBalanceVolume)
 
-# print(appleStock.dailyClose)
-
-# accumulatedOnBalanceVolume = OnBalanceVolumeOverTime(appleStock)
-# print(accumulatedOnBalanceVolume)
-
-print(appleStock.onBalanceVolume)
+portfolioValues = BackTest()
+print(portfolioValues)
