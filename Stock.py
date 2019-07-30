@@ -1,3 +1,4 @@
+from datetime import datetime
 import csv
 import random
 
@@ -19,14 +20,14 @@ class Stock:
             line_count = 0
             for row in csv_reader:
                 if line_count > 0:
-                    currentDate = row[0]
+                    currentDate = datetime.strptime(row[0], '%Y-%m-%d')
                     currentOpen = float(row[1])
                     currentHigh = float(row[2])
                     currentLow = float(row[3])
                     currentClose = float(row[4])
                     currentAdjustedClose = float(row[5])
                     currentVolume = int(row[6])
-                    
+
                     self.dates.append(currentDate)
                     self.dailyOpen.append(currentOpen)
                     self.dailyHigh.append(currentHigh)
