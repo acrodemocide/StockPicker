@@ -9,13 +9,27 @@ class StockRepository:
             'GOOG': './Data/GOOG.csv',
             'MSFT': './Data/MSFT.csv'
         }
+        self.cachedStock = {}
 
-    # Determine the best way to cache data so we can avoid making any extra
-    #   calls to get data
     def GetStockByTicker(self, stockTickerSymbol):
-        stockDataFile = self.stockLookupTable[stockTickerSymbol]
-        stock = self.__ReadStockFromCSV(stockDataFile)
+        stock = None
+        if (stockTickerSymbol not in self.cachedStock):
+            stockDataFile = self.stockLookupTable[stockTickerSymbol]
+            stock = self.__ReadStockFromCSV(stockDataFile)
+            self.cachedStock[stockTickerSymbol] = stock
+        else:
+            stock = self.cachedStock[stockTickerSymbol]
         return stock
+    
+    def GetCurrentStockPrice(self, stockTickerSymbol):
+        stock = self.GetStockByTicker(stockTickerSymbol)
+        # Stocks are loaded in chronological order with the most recent being
+        #   loaded last
+        mostRecentIndex = len(stock.dates) - 1
+        # With our limited data, for now, we're just going to use the closingPrice
+        #   for the most current day
+        stockPrice = stock.dailyClose[mostRecentIndex]
+        return stockPrice
     
     def __ReadStockFromCSV(self, fileName):
         stock = Stock('')

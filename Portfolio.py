@@ -1,28 +1,43 @@
+from Data.StockRepository import StockRepository
+
 class Portfolio:
     def __init__(self, startingCash):
         self.cash = startingCash
         self.stockValue = 0
         self.numberOfStocksHeld = 0
+        self.heldStocks = {}    # key = stockTicker, value = number owned
+        self.stockRepository = StockRepository()
     
     def GetTotalValue(self):
-        totalStockValue = self.stockValue * self.numberOfStocksHeld
-        return totalStockValue + self.cash
+        accumulatedPortfolioValue = 0
+        for stockTickerSymbol, quantity in self.heldStocks.items():
+            stockMarketValue = self.stockRepository.GetCurrentStockPrice(stockTickerSymbol)
+            totalStockInvestmentValue = stockMarketValue * quantity
+            accumulatedPortfolioValue += totalStockInvestmentValue
+        accumulatedPortfolioValue += self.cash
+        return accumulatedPortfolioValue
     
-    # This assumes we're putting all of our cash on the stock
-    # This also assumes we can buy fractions of a share
-    def Buy(self, stockValue):
-        if (self.cash > 0):
-            totalSharesToBuy = self.cash / stockValue
-            self.stockValue = stockValue
-            self.numberOfStocksHeld = totalSharesToBuy
-            self.cash = 0
+    def Buy(self, stockTickerSymbol, quantity):
+        stockMarketPrice = self.stockRepository.GetCurrentStockPrice(stockTickerSymbol)
+        orderTotal = stockMarketPrice * quantity
+        if (orderTotal > self.cash):
+            maxNumberOfSharesToBuy = self.cash // stockMarketPrice
+            orderTotal = stockMarketPrice * maxNumberOfSharesToBuy
+        self.cash -= orderTotal
+        self.heldStocks[stockTickerSymbol] = quantity
+
     
     # This assumes that we're selling all of our shares held
-    def Sell(self, stockValue):
-        if (self.numberOfStocksHeld > 0):
-            self.cash = self.stockValue * self.numberOfStocksHeld
-            self.numberOfStocksHeld = 0
-            self.stockValue = 0
+    def Sell(self, stockTickerSymbol, quantity):
+        if (stockTickerSymbol in self.heldStocks):
+            currentMarketValue = self.stockRepository.GetCurrentStockPrice(stockTickerSymbol)
+            if (quantity > self.heldStocks[stockTickerSymbol]):
+                quantity = self.heldStocks[stockTickerSymbol]
+            totalSellValue = currentMarketValue * quantity
+            self.cash += totalSellValue
+            self.heldStocks[stockTickerSymbol] -= quantity
     
+    # Tech Debt: We need to determine a better way to simulate the stock
+    #   market
     def UpdateStockValue(self, stockValue):
         self.stockValue = stockValue
