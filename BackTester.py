@@ -1,12 +1,13 @@
-# from FirstAlgorithm import FirstAlgorithm
 from TradingAlgorithms.FirstAlgorithm import FirstAlgorithm
 from Portfolio import Portfolio
 from Stock import Stock
+from Data.StockRepository import StockRepository
 
 def BackTest():
-    appleStock = Stock('Apple', 'AAPL')
-    # Starting money = 1000
-    portfolio = Portfolio(1000)
+    stockRepository = StockRepository()
+    appleStock = stockRepository.GetStockByTicker('AAPL')
+    startingCash = 1000
+    portfolio = Portfolio(startingCash)
     numberOfDays = len(appleStock.dailyClose)
     counter = 0
     portfolioValues = []
