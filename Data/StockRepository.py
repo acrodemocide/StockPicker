@@ -1,4 +1,4 @@
-from Stock import Stock
+from Data.Stock import Stock
 import csv
 from datetime import datetime
 

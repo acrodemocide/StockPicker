@@ -1,4 +1,4 @@
-from Stock import Stock
+from Data.Stock import Stock
 from Data.StockRepository import StockRepository
 from BackTester import BackTest
 

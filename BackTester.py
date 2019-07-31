@@ -1,6 +1,6 @@
 from TradingAlgorithms.FirstAlgorithm import FirstAlgorithm
 from Portfolio import Portfolio
-from Stock import Stock
+from Data.Stock import Stock
 from Data.StockRepository import StockRepository
 
 def BackTest():

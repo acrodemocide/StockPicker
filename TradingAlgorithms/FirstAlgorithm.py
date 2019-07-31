@@ -1,4 +1,4 @@
-from Stock import Stock
+from Data.Stock import Stock
 
 # Recognize Technical Patterns
 # Determine support and resistance
