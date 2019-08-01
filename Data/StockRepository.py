@@ -70,3 +70,17 @@ class StockRepository:
                     stock.onBalanceVolume.append(previousDayVolume + volumeToAdd)
                 line_count += 1
         return stock
+
+# Tech Debt - Implement the strategy pattern for this and the class above
+class BackTestStockRepository(StockRepository):
+    def __init__(self):
+        StockRepository.__init__(self)
+        self.currentStockPosition = 0
+
+    def GetCurrentStockPrice(self, stockTickerSymbol):
+        stock = self.GetStockByTicker(stockTickerSymbol)
+        lastIndex = len(stock.dates) - 1
+        stockPrice = stock.dailyClose[self.currentStockPosition]
+        if (self.currentStockPosition < lastIndex):
+            self.currentStockPosition += 1
+        return stockPrice

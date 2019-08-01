@@ -1,10 +1,10 @@
 from Portfolio import Portfolio
-from Data.StockRepository import StockRepository
+from Data.StockRepository import StockRepository, BackTestStockRepository
 
 class StockBroker:
-    def __init__(self, initialCashDeposit):
-        self.__portfolio = Portfolio(initialCashDeposit)
-        self.stockRepository = StockRepository()
+    def __init__(self, initialCashDeposit, stockRepository):
+        self.__portfolio = Portfolio(initialCashDeposit, stockRepository)
+        self.stockRepository = stockRepository
     
     def MarketBuy(self, stockTickerSymbol, quantity):
         self.__portfolio.Buy(stockTickerSymbol, quantity)
@@ -27,8 +27,3 @@ class StockBroker:
     
     def GetPortfolio(self):
         return self.__portfolio
-    
-    # Tech Debt: We need to determine a better way to simulate the stock
-    #   market
-    def UpdateStockValue(self, stockValue):
-        self.__portfolio.UpdateStockValue(stockValue)
