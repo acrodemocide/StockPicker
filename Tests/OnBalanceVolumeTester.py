@@ -3,10 +3,8 @@ import sys
 sys.path.append('../')
 from TradingAlgorithms.OnBalanceVolume import OnBalanceVolumeOverTime, OnBalanceVolume
 from Data.Stock import Stock
-
-
   
-class TestTechnicalAnalyzerMethods(unittest.TestCase): 
+class TestOnBalanceVolumeMethods(unittest.TestCase): 
       
     def setUp(self): 
         pass
