@@ -10,8 +10,8 @@ def OnBalanceVolumeOverTime(stock):
     accumulatedOBV = 0
     numberOfDays = len(stock.dailyClose)
     startingIndex = numberOfDays - lookBack - 1
-    if startingIndex < 0:
-        startingIndex = 0
+    if startingIndex < 1:
+        startingIndex = 1
     currentIndex = startingIndex
     while currentIndex < numberOfDays:
         previousDayClose = stock.dailyClose[currentIndex - 1]
