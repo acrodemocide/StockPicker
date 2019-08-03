@@ -3,7 +3,8 @@ import sys
 sys.path.append('../')
 from TradingAlgorithms.OnBalanceVolume import OnBalanceVolumeOverTime, OnBalanceVolume
 from Data.Stock import Stock
-  
+
+# Pytest requires "test_" prefix to consider a function a test to run
 class OnBalanceVolumeTests(unittest.TestCase):
       
     def setUp(self): 
