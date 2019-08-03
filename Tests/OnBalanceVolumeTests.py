@@ -4,7 +4,7 @@ sys.path.append('../')
 from TradingAlgorithms.OnBalanceVolume import OnBalanceVolumeOverTime, OnBalanceVolume
 from Data.Stock import Stock
   
-class TestOnBalanceVolumeMethods(unittest.TestCase): 
+class OnBalanceVolumeTests(unittest.TestCase):
       
     def setUp(self): 
         pass
