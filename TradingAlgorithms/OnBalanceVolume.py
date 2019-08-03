@@ -1,4 +1,6 @@
-from Stock import Stock
+import sys
+sys.path.append('../')
+from Data.Stock import Stock
 
 # In the future, we will update this so that it can generate an indicator based on how many days
 #   we want to look back. This can then be used to determine the OBV as a momentum indicator.
