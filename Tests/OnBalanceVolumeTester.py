@@ -1,5 +1,3 @@
-# TODO: Write unit tests for Technical Analyzer (this was taken from an online template)
-# Python code to demonstrate working of unittest 
 import unittest 
 import sys
 sys.path.append('../')
