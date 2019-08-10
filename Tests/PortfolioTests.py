@@ -28,6 +28,9 @@ class PortfolioTests(unittest.TestCase):
     #     tickerSymbol = 'AAPL'
     #     portfolio.Buy(tickerSymbol, 3)
     #     self.assertEqual(1, 1)
+
+    # This is my recording test asdfkasjldfkj aisndfkn
+    # I like writing code, but this is all really comments
     
 if __name__ == '__main__': 
     unittest.main()
