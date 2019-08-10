@@ -1,4 +1,5 @@
 import unittest
+from unittest.mock import MagicMock
 import sys
 sys.path.append('../')
 from Portfolio import Portfolio
@@ -6,12 +7,9 @@ from Data.StockRepository import BackTestStockRepository
 
 # Pytest requires "test_" prefix to consider a function a test to run
 class PortfolioTests(unittest.TestCase):
-      
+
     def setUp(self): 
         pass
-    
-    def test_FirstTest(self):
-        self.assertEqual(1, 1)
     
     def test_GetTotalValue_InitialSetup(self):
         stockRepository = BackTestStockRepository()
@@ -20,17 +18,93 @@ class PortfolioTests(unittest.TestCase):
         totalValue = portfolio.GetTotalValue()
         self.assertEqual(totalValue, startingCash)
     
-    # TODO: Create a mock repository to allow us to use predictable test data
-    # def test_Buy(self):
-    #     stockRepository = BackTestStockRepository()
-    #     startingCash = 1000
-    #     portfolio = Portfolio(startingCash, stockRepository)
-    #     tickerSymbol = 'AAPL'
-    #     portfolio.Buy(tickerSymbol, 3)
-    #     self.assertEqual(1, 1)
+    def test_GetTotalValue_ThreeSharesOfApple(self):
+        mockStockRepository = BackTestStockRepository()
+        mockStockRepository.GetCurrentStockPrice = MagicMock(return_value = 200)
+        startingCash = 1000
+        portfolio = Portfolio(startingCash, mockStockRepository)
+        portfolio.heldStocks['AAPL'] = 3
+        expectedValue = 1600
+        actualValue = portfolio.GetTotalValue()
+        self.assertEqual(expectedValue, actualValue)
+    
+    def test_GetTotalValue_ThreeSharesOfApple_ThreeSharesOfMicrosoft(self):
+        # Arrange
+        mockStockRepository = BackTestStockRepository()
+        mockStockRepository.GetCurrentStockPrice = MagicMock(return_value = 200)
+        startingCash = 1000
+        portfolio = Portfolio(startingCash, mockStockRepository)
+        portfolio.heldStocks['AAPL'] = 3
+        portfolio.heldStocks['MSFT'] = 3
+        expectedValue = 2200
+        # Act
+        actualValue = portfolio.GetTotalValue()
+        # Assert
+        self.assertEqual(expectedValue, actualValue)
+    
+    def test_Buy_CashGreaterThanPurchasePrice(self):
+        # Arrange
+        mockStockRepository = BackTestStockRepository()
+        mockStockRepository.GetCurrentStockPrice = MagicMock(return_value = 200)
+        startingCash = 1000
+        portfolio = Portfolio(startingCash, mockStockRepository)
+        expectedPortfolioValue = 1000
+        expectedStockHeldQuantity = 3
+        numberOfStocksToPurchase = 3
+        # Act
+        portfolio.Buy('AAPL', numberOfStocksToPurchase)
+        # Assert
+        actualValue = portfolio.GetTotalValue()
+        self.assertEqual(actualValue, expectedPortfolioValue)
+        self.assertEqual(expectedStockHeldQuantity, portfolio.heldStocks['AAPL'])
 
-    # This is my recording test asdfkasjldfkj aisndfkn
-    # I like writing code, but this is all really comments
+    def test_Buy_CashEqualToPurchaseprice(self):
+        # Arrange
+        mockStockRepository = BackTestStockRepository()
+        mockStockRepository.GetCurrentStockPrice = MagicMock(return_value = 200)
+        startingCash = 600
+        portfolio = Portfolio(startingCash, mockStockRepository)
+        expectedPortfolioValue = 600
+        expectedStockHeldQuantity = 3
+        numberOfStocksToPurchase = 3
+        # Act
+        portfolio.Buy('AAPL', numberOfStocksToPurchase)
+        # Assert
+        actualValue = portfolio.GetTotalValue()
+        self.assertEqual(actualValue, expectedPortfolioValue)
+        self.assertEqual(expectedStockHeldQuantity, portfolio.heldStocks['AAPL'])
+
+    def test_Buy_CashLessThanPurchasePrice(self):
+        # Arrange
+        mockStockRepository = BackTestStockRepository()
+        mockStockRepository.GetCurrentStockPrice = MagicMock(return_value = 200)
+        startingCash = 1000
+        portfolio = Portfolio(startingCash, mockStockRepository)
+        expectedPortfolioValue = 1000
+        expectedStockHeldQuantity = 5
+        numberOfStocksToPurchase = 6
+        # Act
+        portfolio.Buy('AAPL', numberOfStocksToPurchase)
+        # Assert
+        actualValue = portfolio.GetTotalValue()
+        self.assertEqual(actualValue, expectedPortfolioValue)
+        self.assertEqual(expectedStockHeldQuantity, portfolio.heldStocks['AAPL'])
+
+    def test_Buy_CashLessThanPurchasePrice_RemainderCashAfterPurchase(self):
+        # Arrange
+        mockStockRepository = BackTestStockRepository()
+        mockStockRepository.GetCurrentStockPrice = MagicMock(return_value = 300)
+        startingCash = 1000
+        portfolio = Portfolio(startingCash, mockStockRepository)
+        expectedPortfolioValue = 1000
+        expectedStockHeldQuantity = 3
+        numberOfStocksToPurchase = 6
+        # Act
+        portfolio.Buy('AAPL', numberOfStocksToPurchase)
+        # Assert
+        actualValue = portfolio.GetTotalValue()
+        self.assertEqual(actualValue, expectedPortfolioValue)
+        self.assertEqual(expectedStockHeldQuantity, portfolio.heldStocks['AAPL'])
     
 if __name__ == '__main__': 
     unittest.main()
