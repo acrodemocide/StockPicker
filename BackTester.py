@@ -4,7 +4,7 @@ from Data.Stock import Stock
 from Data.StockRepository import BackTestStockRepository
 from StockBroker import StockBroker
 
-def BackTest():
+def BackTest(tradingAlgorithm):
     appleTickerSymbol = 'AAPL'
     stockRepository = BackTestStockRepository()
     startingCash = 1000
